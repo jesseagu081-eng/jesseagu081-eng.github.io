@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jesse Agu · AI &amp; Automation</title>
+<meta property="og:title" content="Jesse Agu · AI &amp; Automation">
+<meta property="og:description" content="AI-powered, no-code automations built with n8n, Make and OpenAI. Based in Coventry, UK.">
+<meta property="og:type" content="website">
+<meta name="description" content="Jesse Chukwuka Agu builds AI-powered, no-code automations with n8n, Make and OpenAI. Based in Coventry, UK.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,500;125,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column of hard-edged sections with cut corners; a live workflow strip is the signature motif. Deliberately single dark theme. */
+:root {
+  --bg: #0f1012;
+  --panel: #17181b;
+  --line: #2a2c31;
+  --fg: #ecebe6;
+  --soft: #c9c8c3;
+  --muted: #9a9ca3;
+  --accent: #c8b06a;
+  --accent-ink: #15130c;
+  --error: #e59a8a;
+  --display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --cut: 14px;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main.wrap { padding-block: 0 40px; }
+a { color: var(--fg); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; z-index: 20; background: var(--accent); color: var(--accent-ink); padding: 8px 12px; }
+
+/* top bar */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.mark { font-family: var(--display); font-weight: 800; font-stretch: 125%; letter-spacing: .02em; font-size: 15px; text-decoration: none; white-space: nowrap; }
+.mark span { color: var(--accent); }
+.bar nav { display: flex; gap: 22px; align-items: center; }
+.bar nav a { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-decoration: none; }
+.bar nav a:hover { color: var(--fg); }
+.bar nav a.nav-cta { color: var(--accent); }
+
+/* shared type */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1, h2, h3 { text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(24px, 3.4vw, 32px); margin: 0; letter-spacing: .01em; }
+h3 { font-family: var(--display); font-weight: 500; font-stretch: 112%; font-size: 21px; line-height: 1.25; margin: 0; }
+p { margin: 0; }
+.soft { color: var(--soft); }
+
+/* buttons */
+.btn {
+  font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 13px 20px; border: 1px solid var(--fg); background: transparent; color: var(--fg);
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 500; }
+.btn:hover { filter: brightness(1.08); }
+.btn[disabled] { opacity: .55; cursor: default; }
+
+/* hero */
+.hero { padding-block: 72px 56px; display: grid; gap: 26px; }
+.hero h1 {
+  font-family: var(--display); font-weight: 800; font-stretch: 125%;
+  font-size: clamp(36px, 7vw, 74px); line-height: .98; letter-spacing: -.01em;
+  margin: 0; text-transform: uppercase;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lede { max-width: 60ch; color: var(--soft); font-size: 18px; }
+.avail { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--soft); }
+.avail i { width: 8px; height: 8px; background: var(--accent); display: inline-block; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* workflow strip */
+.flow { display: flex; align-items: stretch; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; }
+.node { border: 1px solid var(--line); background: var(--panel); padding: 10px 14px; display: grid; gap: 2px; min-width: 0; }
+.node b { font-weight: 500; letter-spacing: .02em; }
+.node small { color: var(--muted); font-size: 11px; }
+.node.hot { border-color: var(--accent); }
+.edge { width: 28px; align-self: center; height: 1px; background: var(--accent); position: relative; }
+.edge::after { content: ""; position: absolute; right: -1px; top: -3px; border: 3.5px solid transparent; border-left: 6px solid var(--accent); }
+.pulse { width: 6px; height: 6px; background: var(--accent); position: absolute; top: -2.5px; left: 0; animation: run 2.4s linear infinite; }
+@keyframes run { from { left: 0; } to { left: calc(100% - 6px); } }
+@media (prefers-reduced-motion: reduce) { .pulse { display: none; } }
+
+/* sections */
+section { padding-block: 64px 8px; border-top: 1px solid var(--line); scroll-margin-top: 60px; }
+.sec-head { display: grid; gap: 8px; margin-bottom: 30px; max-width: 64ch; }
+.sec-head p { color: var(--soft); }
+
+/* services */
+.services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.svc { border-top: 2px solid var(--accent); padding-top: 18px; display: grid; gap: 10px; align-content: start; }
+.svc .eyebrow { color: var(--muted); }
+.svc p { color: var(--soft); font-size: 15px; }
+
+/* projects */
+.projects { display: grid; gap: 16px; }
+.proj {
+  background: var(--panel); border: 1px solid var(--line); padding: 28px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 250px); gap: 28px;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+.proj.lead { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.proj-body { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.status { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.status.dim { color: var(--muted); }
+.psr { display: grid; gap: 10px; margin: 0; }
+.psr div { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 12px; }
+.psr dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.psr dd { margin: 0; color: var(--soft); max-width: 58ch; }
+.meta { display: grid; gap: 16px; align-content: start; border-left: 1px solid var(--line); padding-left: 22px; margin: 0; }
+.meta dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.meta dd { margin: 4px 0 0; font-size: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--mono); font-size: 11px; border: 1px solid var(--line); padding: 3px 8px; color: var(--soft); }
+.dl { display: grid; gap: 6px; justify-items: start; }
+.note { font-family: var(--mono); font-size: 12px; color: var(--muted); min-height: 1.4em; }
+
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 44px; }
+.about-copy { display: grid; gap: 14px; align-content: start; }
+.about-copy p { color: var(--soft); max-width: 62ch; }
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.timeline li:first-child { border-top: 1px solid var(--line); }
+.timeline span { font-family: var(--mono); font-size: 12px; color: var(--accent); padding-top: 2px; }
+.timeline b { font-weight: 500; display: block; }
+.timeline small { color: var(--muted); font-size: 13px; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.skills h3 { font-family: var(--mono); font-weight: 400; font-stretch: 100%; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.skills ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.skills li { font-size: 15px; }
+
+/* contact */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 44px; }
+.contact-side { display: grid; gap: 18px; align-content: start; }
+.contact-side p { color: var(--soft); max-width: 44ch; }
+.email { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; border: 1px solid var(--line); background: var(--panel); padding: 12px 14px; font-family: var(--mono); font-size: 14px; }
+.email output { user-select: all; word-break: break-all; }
+.linkbtn { background: none; border: 0; color: var(--accent); font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; padding: 4px 0; }
+.facts { display: grid; gap: 8px; margin: 0; font-size: 14px; }
+.facts div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; }
+.facts dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.facts dd { margin: 0; }
+form { display: grid; gap: 14px; background: var(--panel); border: 1px solid var(--line); padding: 24px;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label { display: grid; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+input, select, textarea {
+  font-family: var(--body); font-size: 16px; letter-spacing: 0; text-transform: none;
+  color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 0; padding: 11px 12px; width: 100%;
+}
+textarea { min-height: 130px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+.err { color: var(--error); font-family: var(--mono); font-size: 12px; min-height: 1.2em; }
+.form-foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.form-foot small { color: var(--muted); font-size: 13px; }
+.done { border: 1px solid var(--accent); background: var(--panel); padding: 22px; display: grid; gap: 14px; }
+.done pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--mono); font-size: 12px; color: var(--soft); background: var(--bg); border: 1px solid var(--line); padding: 12px; max-height: 240px; overflow: auto; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+footer { margin-top: 72px; border-top: 1px solid var(--line); }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-block: 20px 28px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+footer a { color: var(--muted); }
+
+@media (max-width: 820px) {
+  .services { grid-template-columns: 1fr; gap: 24px; }
+  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proj, .about, .contact { grid-template-columns: 1fr; }
+  .proj { padding: 22px; gap: 20px; }
+  .meta { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 18px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .row2 { grid-template-columns: 1fr; }
+  .edge { width: 16px; }
+}
+@media (max-width: 520px) {
+  .hero { padding-block: 44px 40px; }
+  .bar nav { gap: 14px; }
+  .bar nav a.hide-sm { display: none; }
+  .flow { flex-direction: column; }
+  .edge { width: 1px; height: 14px; align-self: flex-start; margin-left: 18px; }
+  .edge::after, .pulse { display: none; }
+  .cta .btn { flex: 1 1 100%; }
+  .psr div { grid-template-columns: 1fr; gap: 2px; }
+  .skills { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+
+/* screenshots */
+.shots { grid-column: 1 / -1; display: grid; gap: 14px; }
+.shots.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
+.shot { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.zoom { display: block; padding: 0; border: 1px solid var(--line); background: var(--bg); cursor: zoom-in; width: 100%; }
+.zoom img { display: block; width: 100%; height: auto; max-width: 100%; }
+.zoom:hover { border-color: var(--accent); }
+.shot figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.lightbox { position: fixed; inset: 0; z-index: 30; background: rgba(8, 8, 10, .92); display: grid; place-items: center; gap: 12px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lightbox figure { margin: 0; display: grid; gap: 10px; max-width: 1400px; width: 100%; }
+.lightbox img { width: 100%; height: auto; max-height: 80vh; object-fit: contain; background: #fff; }
+.lightbox figcaption { color: var(--soft); font-size: 14px; }
+.lightbox .close { justify-self: end; }
+.sec-head .dl { margin-top: 8px; }
+@media (max-width: 820px) { .shots.two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Jesse Agu, back to top">JESSE<span>.</span>AGU</a>
+    <nav aria-label="Sections">
+      <a href="#services" class="hide-sm">Services</a>
+      <a href="#work">Work</a>
+      <a href="#about" class="hide-sm">About</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div class="hero" id="top">
+    <div class="eyebrow">AI &amp; Automation · Coventry, UK</div>
+    <h1>I build automations that take the <em>busywork</em> off your plate.</h1>
+    <p class="lede">I'm Jesse Agu, an engineering graduate who designs AI-powered, no-code workflows in n8n and Make. I turn slow, repetitive processes, like screening applications or sorting customer feedback, into systems that run on their own.</p>
+    <div class="flow" aria-label="How my automations work: a trigger starts the workflow, logic routes it, an AI step processes it, and the result is delivered">
+      <div class="node"><b>Trigger</b><small>form, email, new record</small></div>
+      <div class="edge"><i class="pulse"></i></div>
+      <div class="node"><b>Logic</b><small>conditions &amp; routing</small></div>
+      <div class="edge"><i class="pulse" style="animation-delay:.6s"></i></div>
+      <div class="node hot"><b>AI step</b><small>read, classify, summarise</small></div>
+      <div class="edge"><i class="pulse" style="animation-delay:1.2s"></i></div>
+      <div class="node"><b>Result</b><small>delivered automatically</small></div>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#work">View my work</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+    <div class="avail"><i aria-hidden="true"></i>Open to junior automation roles and freelance projects</div>
+  </div>
+
+  <section id="services" aria-labelledby="services-h">
+    <div class="sec-head">
+      <h2 id="services-h">What I do</h2>
+      <p>Practical automation for teams and small businesses that are losing hours to manual work.</p>
+    </div>
+    <div class="services">
+      <div class="svc">
+        <div class="eyebrow">Workflows</div>
+        <h3>Workflow automation</h3>
+        <p>Connect the tools you already use, such as forms, email and spreadsheets, so tasks move from one step to the next without anyone copying data across.</p>
+      </div>
+      <div class="svc">
+        <div class="eyebrow">AI</div>
+        <h3>AI-powered processing</h3>
+        <p>Add an AI step that reads, sorts and summarises incoming information, so you get organised results instead of a pile of messages.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <h2 id="work-h">Selected work</h2>
+      <p>Two automations built and presented during my AI &amp; Automation training. Tap a screenshot to see it full size.</p>
+      <div class="dl">
+        <a class="btn primary" href="jesse-agu-case-studies.pdf" download="Jesse-Agu-Automation-Case-Studies.pdf">Download case studies (PDF)</a>
+      </div>
+    </div>
+    <div class="projects">
+
+      <article class="proj lead">
+        <div class="proj-body">
+          <div class="status">Featured · Presented at TS Academy</div>
+          <h3>Job Application Tracker</h3>
+          <dl class="psr">
+            <div><dt>Problem</dt><dd>Every application has to be logged, acknowledged, passed to HR and sorted by experience before the right reply goes out. By hand, that's slow and easy to get wrong.</dd></div>
+            <div><dt>Solution</dt><dd>An n8n workflow triggered by each new application. It skips duplicates, saves the applicant, emails a confirmation, alerts HR, then sorts by experience: Junior (0–2 yrs), Mid-level (3–5) or Senior (6+). Each level gets its own sheet and email, from a kept-on-file reply to an interview invite.</dd></div>
+            <div><dt>Result</dt><dd>Tested with one applicant per level and rerun live while presenting. Every applicant was logged, emailed and filed to the right sheet.</dd></div>
+          </dl>
+        </div>
+        <dl class="meta">
+          <div><dt>Platform</dt><dd>n8n · 12 nodes</dd></div>
+          <div><dt>Tools</dt><dd class="tags"><span class="tag">n8n</span><span class="tag">Google Sheets</span><span class="tag">Gmail</span></dd></div>
+        </dl>
+        <div class="shots">
+          <figure class="shot">
+            <button type="button" class="zoom" data-src="shot-tracker-n8n.jpg" data-cap="The Job Application Tracker workflow in n8n" aria-label="View the n8n workflow full size">
+              <img src="shot-tracker-n8n.jpg" alt="n8n workflow: Google Sheets trigger, skip duplicates, save to all applicants, confirmation email, HR alert, then a switch sorting applicants into Junior, Mid-level and Senior sheets and emails" width="1600" height="501" loading="lazy">
+            </button>
+            <figcaption>The workflow in n8n</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-body">
+          <div class="status">Capstone · Team project</div>
+          <h3>Customer Feedback Automation</h3>
+          <dl class="psr">
+            <div><dt>Problem</dt><dd>A car care chain with branches in Manchester, Leeds, Liverpool and London gets feedback it can't review fast enough. Urgent complaints wait, and managers have no single view of each branch.</dd></div>
+            <div><dt>Solution</dt><dd>A Make scenario that picks up new feedback, checks the customer's history, and has ChatGPT score its sentiment and severity. A router sends it down one of five routes, such as ready to post, private queue, manager alert or needs human review, logging each to Google Sheets and a management dashboard and emailing the manager when it's urgent.</dd></div>
+            <div><dt>Result</dt><dd>A test run processed feedback in 11 seconds. The dashboard showed volume by branch, average sentiment and severity, where feedback was routed, and draft replies for negative feedback.</dd></div>
+          </dl>
+        </div>
+        <dl class="meta">
+          <div><dt>Client type</dt><dd>Car care chain, 4 branches</dd></div>
+          <div><dt>Tools</dt><dd class="tags"><span class="tag">Make</span><span class="tag">OpenAI</span><span class="tag">Google Sheets</span><span class="tag">Airtable</span><span class="tag">Gmail</span></dd></div>
+        </dl>
+        <div class="shots two">
+          <figure class="shot">
+            <button type="button" class="zoom" data-src="shot-capstone-make.jpg" data-cap="The Make scenario: new feedback, score, check history, route" aria-label="View the Make scenario full size">
+              <img src="shot-capstone-make.jpg" alt="Make scenario: Google Sheets modules and an OpenAI module feed a router with five routes, each logging to Google Sheets and the management dashboard, two also emailing the manager" width="896" height="518" loading="lazy">
+            </button>
+            <figcaption>The scenario in Make</figcaption>
+          </figure>
+          <figure class="shot">
+            <button type="button" class="zoom" data-src="shot-capstone-dashboard.jpg" data-cap="The management dashboard: feedback by branch and where it was routed" aria-label="View the management dashboard full size">
+              <img src="shot-capstone-dashboard.jpg" alt="Management dashboard showing feedback received, average sentiment, average severity, feedback by branch and where feedback was routed" width="1600" height="765" loading="lazy">
+            </button>
+            <figcaption>The management dashboard</figcaption>
+          </figure>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-h">
+    <div class="sec-head"><h2 id="about-h">About me</h2></div>
+    <div class="about">
+      <div class="about-copy">
+        <p>I studied automotive engineering, where my strongest area was product innovation: understanding what a product needs to do, then designing it so it does that well. I apply the same thinking to automation. I start with the task people find slow or repetitive, map how it works, and build a system that handles it.</p>
+        <p>I've also worked on the other side of AI as a generalist AI trainer on Outlier's Aether project, evaluating and improving model responses. That experience taught me where AI is reliable, where it needs checking, and how to build it into workflows people can trust.</p>
+        <p>Next, I'm adding data analytics to my skill set, so the systems I build can also report on what they find.</p>
+      </div>
+      <ol class="timeline" aria-label="Background">
+        <li><span>Next</span><div><b>Data Analytics</b><small>TS Academy</small></div></li>
+        <li><span>2026</span><div><b>AI &amp; Automation programme</b><small>TS Academy · completed</small></div></li>
+        <li><span>AI</span><div><b>Generalist AI trainer</b><small>Outlier · Aether project</small></div></li>
+        <li><span>Degree</span><div><b>Automotive Engineering</b><small>Specialism in product innovation</small></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="sec-head"><h2 id="skills-h">Skills &amp; tools</h2></div>
+    <div class="skills">
+      <div><h3>Automation</h3><ul><li>n8n</li><li>Make</li><li>Gmail automations</li></ul></div>
+      <div><h3>AI</h3><ul><li>OpenAI / ChatGPT</li><li>AI response evaluation</li><li>Prompt design</li></ul></div>
+      <div><h3>Data</h3><ul><li>Google Sheets</li><li>Airtable dashboards</li><li>Excel</li><li>MATLAB</li></ul></div>
+      <div><h3>Engineering</h3><ul><li>CAD</li><li>Product innovation</li><li>Process design</li></ul></div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="sec-head"><h2 id="contact-h">Let's work together</h2></div>
+    <div class="contact">
+      <div class="contact-side">
+        <p>Hiring for an automation role, or want a repetitive task in your business automated? Send me a message and I'll get back to you.</p>
+        <div class="email">
+          <output id="email-addr">jesseagu081@gmail.com</output>
+          <button class="linkbtn" type="button" id="copy-email">Copy</button>
+        </div>
+        <p class="note" id="copy-note" aria-live="polite"></p>
+        <dl class="facts">
+          <div><dt>Based in</dt><dd>Coventry, UK</dd></div>
+          <div><dt>Open to</dt><dd>Junior roles, freelance and contract work</dd></div>
+        </dl>
+      </div>
+
+      <div>
+        <form id="contact-form" novalidate>
+          <div class="row2">
+            <label for="c-name">Your name<input id="c-name" autocomplete="name" placeholder="Alex Morgan"></label>
+            <label for="c-email">Your email<input id="c-email" type="email" autocomplete="email" placeholder="alex@company.co.uk"></label>
+          </div>
+          <label for="c-topic">Enquiry type
+            <select id="c-topic">
+              <option>Job or internship opportunity</option>
+              <option>Automation project</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label for="c-msg">Message<textarea id="c-msg" placeholder="Tell me briefly what you need."></textarea></label>
+          <p class="err" id="c-err" aria-live="polite"></p>
+          <div class="form-foot">
+            <button class="btn primary" type="submit">Prepare message</button>
+            <small>Your message opens in your own email app, ready to send.</small>
+          </div>
+        </form>
+        <div class="done" id="c-done" hidden tabindex="-1">
+          <p>Your message is ready. Open it in your email app, or copy it and send it to the address shown.</p>
+          <pre id="c-preview"></pre>
+          <div class="actions">
+            <a class="btn primary" id="c-mailto" href="#contact">Open in email app</a>
+            <button class="btn" type="button" id="c-copy">Copy message</button>
+            <button class="btn" type="button" id="c-edit">Edit</button>
+          </div>
+          <p class="note" id="c-note" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Jesse Chukwuka Agu</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Screenshot">
+  <figure>
+    <button class="btn close" type="button" id="lb-close">Close</button>
+    <img id="lb-img" alt="">
+    <figcaption id="lb-cap"></figcaption>
+  </figure>
+</div>
+
+<script>
+(function () {
+  var EMAIL = "jesseagu081@gmail.com";
+
+  function copyText(text, noteEl, okMsg) {
+    function fallback() { noteEl.textContent = "Couldn't copy automatically. Select the text and copy it."; }
+    try {
+      navigator.clipboard.writeText(text).then(function () { noteEl.textContent = okMsg; }, fallback);
+    } catch (e) { fallback(); }
+  }
+
+  document.getElementById("copy-email").addEventListener("click", function () {
+    copyText(EMAIL, document.getElementById("copy-note"), "Email address copied.");
+  });
+
+  // Contact form: validates, then builds a ready-to-send email for the visitor.
+  var form = document.getElementById("contact-form");
+  var done = document.getElementById("c-done");
+  var err = document.getElementById("c-err");
+  var bodyText = "", subject = "";
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var nEl = document.getElementById("c-name"), eEl = document.getElementById("c-email"), mEl = document.getElementById("c-msg");
+    var name = nEl.value.trim(), from = eEl.value.trim(), msg = mEl.value.trim(), topic = document.getElementById("c-topic").value;
+    if (!name) { err.textContent = "Please add your name."; nEl.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from)) { err.textContent = "Please enter a valid email address so I can reply."; eEl.focus(); return; }
+    if (msg.length < 10) { err.textContent = "Please write a short message (at least one sentence)."; mEl.focus(); return; }
+    err.textContent = "";
+    subject = topic + " – via your website";
+    bodyText = "Hi Jesse,\n\n" + msg + "\n\nBest regards,\n" + name + "\n" + from;
+    document.getElementById("c-preview").textContent = "To: " + EMAIL + "\nSubject: " + subject + "\n\n" + bodyText;
+    document.getElementById("c-mailto").href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(bodyText);
+    form.hidden = true; done.hidden = false; done.focus();
+    document.getElementById("c-note").textContent = "";
+  });
+  document.getElementById("c-copy").addEventListener("click", function () {
+    copyText("To: " + EMAIL + "\nSubject: " + subject + "\n\n" + bodyText, document.getElementById("c-note"), "Message copied. Paste it into a new email to " + EMAIL + ".");
+  });
+  document.getElementById("c-edit").addEventListener("click", function () { done.hidden = true; form.hidden = false; document.getElementById("c-msg").focus(); });
+
+  // Screenshot viewer
+  var lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap"), lastZoom = null;
+  function closeLb() { lb.hidden = true; lbImg.removeAttribute("src"); if (lastZoom) lastZoom.focus(); }
+  Array.prototype.forEach.call(document.querySelectorAll(".zoom"), function (b) {
+    b.addEventListener("click", function () {
+      lastZoom = b; lbImg.src = b.getAttribute("data-src"); lbImg.alt = b.querySelector("img").alt;
+      lbCap.textContent = b.getAttribute("data-cap"); lb.hidden = false; document.getElementById("lb-close").focus();
+    });
+  });
+  document.getElementById("lb-close").addEventListener("click", closeLb);
+  lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) closeLb(); });
+
+})();
+</script>
+
+</body>
+</html>
