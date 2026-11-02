@@ -2,10 +2,10 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jesse Agu · AI &amp; Automation</title>
 <meta property="og:title" content="Jesse Agu · AI &amp; Automation">
-<meta property="og:description" content="AI-powered, no-code automations built with n8n, Make and OpenAI. Based in Coventry, UK.">
+<meta property="og:description" content="AI-powered, no-code automations built with n8n, Make and OpenAI that help businesses respond faster and win and keep more customers.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jesseagu081-eng.github.io/">
 <meta property="og:image" content="https://jesseagu081-eng.github.io/og-image.jpg">
@@ -14,14 +14,15 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0f1012">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="description" content="Jesse Chukwuka Agu builds AI-powered, no-code automations with n8n, Make and OpenAI. Based in Coventry, UK.">
+<meta name="description" content="Jesse Chukwuka Agu builds AI-powered, no-code automations with n8n, Make and OpenAI that help businesses respond faster and win and keep more customers. Based in Coventry, UK.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,500;125,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,500;112,700;125,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one column of hard-edged sections with cut corners; a live workflow strip is the signature motif. Deliberately single dark theme. */
+/* Layout: one column of ruled sections; a live workflow strip is the signature motif; projects read as structured case studies. Deliberately single dark theme. */
 :root {
   --bg: #0f1012;
-  --panel: #17181b;
+  --panel: #16171a;
+  --panel-2: #1c1d21;
   --line: #2a2c31;
   --fg: #ecebe6;
   --soft: #c9c8c3;
@@ -32,7 +33,6 @@
   --display: "Archivo", "Arial Narrow", Arial, sans-serif;
   --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  --cut: 14px;
   color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -50,16 +50,18 @@ body {
 }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .wrap {
-  max-width: 1000px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
 }
 main.wrap { padding-block: 0 56px; }
 a { color: var(--fg); text-decoration-color: var(--accent); text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .skip { position: absolute; left: -9999px; }
 .skip:focus { left: 16px; top: 16px; z-index: 20; background: var(--accent); color: var(--accent-ink); padding: 8px 12px; }
+p { margin: 0; }
+h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
 
 /* top bar */
 .bar {
@@ -68,43 +70,37 @@ a { color: var(--fg); text-decoration-color: var(--accent); text-underline-offse
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
 }
-.bar .wrap { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding-block: 16px; }
-.mark { font-family: var(--display); font-weight: 800; font-stretch: 125%; letter-spacing: .02em; font-size: 15px; text-decoration: none; white-space: nowrap; }
-.mark span { color: var(--accent); }
-.bar nav { display: flex; gap: 22px; align-items: center; }
-.bar nav a { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-decoration: none; }
+.bar .wrap { display: flex; align-items: center; justify-content: flex-end; padding-block: 16px; }
+.bar nav { display: flex; gap: 26px; align-items: center; }
+.bar nav a { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); text-decoration: none; }
 .bar nav a:hover { color: var(--fg); }
 .bar nav a.nav-cta { color: var(--accent); }
 
 /* shared type */
-.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
-h1, h2, h3 { text-wrap: balance; }
-h2 { font-family: var(--display); font-weight: 800; font-stretch: 112%; text-transform: uppercase; font-size: clamp(24px, 3.2vw, 30px); line-height: 1.15; margin: 0; letter-spacing: .03em; }
-h3 { font-family: var(--display); font-weight: 500; font-stretch: 112%; font-size: 21px; line-height: 1.3; margin: 0; letter-spacing: .01em; }
-p { margin: 0; }
-.soft { color: var(--soft); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.label { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+h2 { font-family: var(--display); font-weight: 800; font-stretch: 112%; text-transform: uppercase; font-size: clamp(25px, 3.2vw, 31px); line-height: 1.15; letter-spacing: .03em; }
+h3 { font-family: var(--display); font-weight: 700; font-stretch: 112%; font-size: 22px; line-height: 1.3; letter-spacing: .01em; }
 
 /* buttons */
 .btn {
-  font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
-  padding: 13px 20px; border: 1px solid var(--fg); background: transparent; color: var(--fg);
-  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 14px 22px; border: 1px solid var(--fg); background: transparent; color: var(--fg);
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; line-height: 1.2;
 }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 500; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
 .btn:hover { filter: brightness(1.08); }
 .btn[disabled] { opacity: .55; cursor: default; }
 
 /* hero */
-.hero { padding-block: 88px 72px; display: grid; gap: 32px; }
+.hero { padding-block: 96px 80px; display: grid; gap: 34px; }
 .hero h1 {
   font-family: var(--display); font-weight: 800; font-stretch: 125%;
-  font-size: clamp(34px, 6vw, 62px); line-height: 1.08; letter-spacing: .01em; max-width: 18ch;
-  margin: 0; text-transform: uppercase;
+  font-size: clamp(34px, 6vw, 62px); line-height: 1.08; letter-spacing: .01em;
+  text-transform: uppercase; max-width: 18ch;
 }
 .hero h1 em { font-style: normal; color: var(--accent); }
-.lede { max-width: 60ch; color: var(--soft); font-size: 18px; line-height: 1.75; }
-.avail { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--soft); }
-.avail i { width: 8px; height: 8px; background: var(--accent); display: inline-block; }
+.lede { max-width: 62ch; color: var(--soft); font-size: 18px; line-height: 1.75; }
 .cta { display: flex; flex-wrap: wrap; gap: 14px; }
 
 /* workflow strip */
@@ -119,39 +115,71 @@ p { margin: 0; }
 @keyframes run { from { left: 0; } to { left: calc(100% - 6px); } }
 @media (prefers-reduced-motion: reduce) { .pulse { display: none; } }
 
+/* proof strip */
+.proof { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 8px; }
+.proof div { padding: 22px 20px 22px 0; display: grid; gap: 8px; align-content: start; }
+.proof div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.proof b { font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: 30px; line-height: 1; color: var(--fg); font-variant-numeric: tabular-nums; }
+.proof span { color: var(--muted); font-size: 13px; line-height: 1.5; }
+
 /* sections */
-section { padding-block: 88px 24px; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
-.sec-head { display: grid; gap: 14px; margin-bottom: 44px; max-width: 64ch; }
-.sec-head p { color: var(--soft); }
+section { padding-block: 88px 48px; scroll-margin-top: 64px; border-top: 1px solid var(--line); }
+.sec-head { display: grid; gap: 14px; margin-bottom: 48px; max-width: 66ch; }
+.sec-head p { color: var(--soft); font-size: 17px; }
+.sec-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 12px; }
+.dl { display: grid; gap: 6px; justify-items: start; }
 
 /* services */
-.services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
-.svc { border-top: 2px solid var(--accent); padding-top: 22px; display: grid; gap: 12px; align-content: start; }
-.svc .eyebrow { color: var(--muted); }
-.svc p { color: var(--soft); font-size: 16px; max-width: 52ch; }
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(3, auto); column-gap: 40px; row-gap: 0; }
+.svc { border-top: 2px solid var(--accent); padding-top: 24px; display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 14px; }
+.svc p { color: var(--soft); font-size: 15.5px; }
+.svc .outcome { align-self: start; margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14.5px; color: var(--fg); }
+.svc .outcome .label { display: block; margin-bottom: 4px; }
 
-/* projects */
-.projects { display: grid; gap: 32px; }
-.proj {
-  background: var(--panel); border: 1px solid var(--line); padding: 40px;
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 240px); gap: 36px 40px;
-}
-.proj.lead { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
-.proj-body { display: grid; gap: 18px; align-content: start; min-width: 0; }
-.status { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-.status.dim { color: var(--muted); }
-.psr { display: grid; gap: 20px; margin: 4px 0 0; }
-.psr div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; }
-.psr dt { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding-top: 5px; }
-.psr dd { margin: 0; color: var(--soft); max-width: 60ch; line-height: 1.75; }
-.meta { display: grid; gap: 24px; align-content: start; border-left: 1px solid var(--line); padding-left: 28px; margin: 0; }
-.meta dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.meta dd { margin: 8px 0 0; font-size: 14px; }
+/* case studies */
+.cases { display: grid; gap: 40px; }
+.case { background: var(--panel); border: 1px solid var(--line); }
+.case.lead { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+.case-head { padding: 44px 44px 0; display: grid; gap: 16px; }
+.status { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.case-head h3 { font-size: 27px; }
+.summary { color: var(--soft); font-size: 18px; line-height: 1.65; max-width: 60ch; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 16px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.facts > div { padding: 18px 18px 18px 0; min-width: 0; }
+.facts > div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.facts dt { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 8px 0 0; font-size: 15px; line-height: 1.45; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.tag { font-family: var(--mono); font-size: 11px; letter-spacing: .02em; border: 1px solid var(--line); padding: 5px 10px; color: var(--soft); line-height: 1.3; }
-.dl { display: grid; gap: 6px; justify-items: start; }
-.note { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-.note:empty { display: none; }
+.tag { font-family: var(--mono); font-size: 11px; letter-spacing: .02em; border: 1px solid var(--line); padding: 5px 10px; color: var(--soft); line-height: 1.3; background: var(--bg); }
+.case-body { padding: 40px 44px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 48px; }
+.case-main, .case-side { display: grid; gap: 34px; align-content: start; min-width: 0; }
+.block { display: grid; gap: 12px; }
+.block > p { color: var(--soft); max-width: 60ch; }
+.steps { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 18px; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; color: var(--soft); }
+.steps li::before { content: counter(step, decimal-leading-zero); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid var(--line); height: 28px; display: grid; place-items: center; margin-top: 1px; }
+.steps b { color: var(--fg); font-weight: 600; }
+.value { background: var(--panel-2); border-left: 2px solid var(--accent); padding: 26px 26px 28px; display: grid; gap: 16px; }
+.value ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.value li { position: relative; padding-left: 20px; color: var(--soft); font-size: 15.5px; line-height: 1.6; }
+.value li::before { content: ""; position: absolute; left: 0; top: .62em; width: 7px; height: 7px; background: var(--accent); }
+.value li b { color: var(--fg); font-weight: 600; }
+.adapt { border: 1px solid var(--line); padding: 22px 24px; display: grid; gap: 10px; }
+.adapt p { color: var(--soft); font-size: 15px; }
+.shots { padding: 0 44px 44px; display: grid; gap: 24px; }
+.shots.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; }
+.shot { margin: 0; display: grid; gap: 12px; min-width: 0; }
+.zoom { display: block; padding: 0; border: 1px solid var(--line); background: var(--bg); cursor: zoom-in; width: 100%; }
+.zoom img { display: block; width: 100%; height: auto; max-width: 100%; }
+.zoom:hover { border-color: var(--accent); }
+.shot figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+/* process */
+.process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; counter-reset: p; }
+.process li { counter-increment: p; display: grid; gap: 12px; align-content: start; padding-top: 22px; border-top: 1px solid var(--line); }
+.process li::before { content: counter(p, decimal-leading-zero); font-family: var(--mono); font-size: 12px; letter-spacing: .1em; color: var(--accent); }
+.process h3 { font-size: 19px; }
+.process p { color: var(--soft); font-size: 15px; }
 
 /* about */
 .about { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 64px; }
@@ -160,97 +188,100 @@ section { padding-block: 88px 24px; border-top: 1px solid var(--line); scroll-ma
 .timeline { list-style: none; margin: 0; padding: 0; }
 .timeline li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .timeline li:first-child { border-top: 1px solid var(--line); }
-.timeline span { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding-top: 4px; }
+.timeline span { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); padding-top: 4px; }
 .timeline b { font-weight: 500; display: block; line-height: 1.4; }
 .timeline small { color: var(--muted); font-size: 13px; display: block; margin-top: 4px; }
 
 /* skills */
 .skills { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; }
-.skills h3 { font-family: var(--mono); font-weight: 400; font-stretch: 100%; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.skills h3 { font-family: var(--mono); font-weight: 400; font-stretch: 100%; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
 .skills ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .skills li { font-size: 15px; }
 
 /* contact */
 .contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 64px; }
-.contact-side { display: grid; gap: 22px; align-content: start; }
-.contact-side p { color: var(--soft); max-width: 44ch; line-height: 1.75; }
-.email { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; border: 1px solid var(--line); background: var(--panel); padding: 14px 18px; font-family: var(--mono); font-size: 14px; }
-.email output { user-select: all; word-break: break-all; }
-.linkbtn { background: none; border: 0; color: var(--accent); font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; padding: 4px 0; }
-.facts { display: grid; gap: 8px; margin: 0; font-size: 14px; }
-.facts div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; }
-.facts dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
-.facts dd { margin: 0; }
+.contact-side { display: grid; gap: 18px; align-content: start; }
+.contact-side > p { color: var(--soft); max-width: 44ch; line-height: 1.75; margin-bottom: 6px; }
+.email, .profile { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; align-items: center; gap: 14px; border: 1px solid var(--line); background: var(--panel); padding: 15px 18px; font-family: var(--mono); font-size: 14px; color: var(--fg); text-decoration: none; }
+.email output { user-select: all; overflow-wrap: anywhere; }
+.profile:hover { border-color: var(--accent); }
+.profile-go { color: var(--accent); }
+.linkbtn { background: none; border: 0; color: var(--accent); font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; cursor: pointer; padding: 4px 0; }
+.note { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.note:empty { display: none; }
 form { display: grid; gap: 20px; background: var(--panel); border: 1px solid var(--line); padding: 32px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-label { display: grid; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+label { display: grid; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 input, select, textarea {
-  font-family: var(--body); font-size: 16px; letter-spacing: 0; text-transform: none;
-  color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 0; padding: 12px 14px; width: 100%; line-height: 1.5;
+  font-family: var(--body); font-size: 16px; letter-spacing: 0; text-transform: none; line-height: 1.5;
+  color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 0; padding: 12px 14px; width: 100%;
 }
-textarea { min-height: 130px; resize: vertical; }
+textarea { min-height: 140px; resize: vertical; }
 input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
-.err { color: var(--error); font-family: var(--mono); font-size: 12px; min-height: 1.2em; }
+.err { color: var(--error); font-family: var(--mono); font-size: 12px; }
+.err:empty { display: none; }
 .form-foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .form-foot small { color: var(--muted); font-size: 13px; max-width: 30ch; line-height: 1.5; }
-.done { border: 1px solid var(--accent); background: var(--panel); padding: 22px; display: grid; gap: 14px; }
-.done pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--mono); font-size: 12px; color: var(--soft); background: var(--bg); border: 1px solid var(--line); padding: 12px; max-height: 240px; overflow: auto; }
+.done { border: 1px solid var(--accent); background: var(--panel); padding: 26px; display: grid; gap: 16px; }
+.done pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--mono); font-size: 12px; color: var(--soft); background: var(--bg); border: 1px solid var(--line); padding: 14px; max-height: 240px; overflow: auto; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
-footer { margin-top: 88px; border-top: 1px solid var(--line); }
-footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-block: 28px 36px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--muted); }
+footer { margin-top: 48px; border-top: 1px solid var(--line); }
+footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-block: 28px 36px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--muted); }
 footer a { color: var(--muted); }
 .foot-links { display: flex; gap: 28px; flex-wrap: wrap; }
-.profile { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; border: 1px solid var(--line); background: var(--panel); padding: 14px 18px; text-decoration: none; color: var(--fg); }
-.profile:hover { border-color: var(--accent); }
-.profile-label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.profile-url { font-family: var(--mono); font-size: 13px; overflow-wrap: anywhere; }
-.profile-go { color: var(--accent); }
 
-@media (max-width: 820px) {
-  .services { grid-template-columns: 1fr; gap: 24px; }
-  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .proj, .about, .contact { grid-template-columns: 1fr; }
-  .proj { padding: 28px 22px; gap: 28px; }
-  section { padding-block: 64px 16px; }
-  .sec-head { margin-bottom: 32px; }
-  .about, .contact { gap: 44px; }
-  .skills { gap: 32px 24px; }
-  .meta { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 18px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-  .row2 { grid-template-columns: 1fr; }
+/* lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 30; background: rgba(8, 8, 10, .94); display: grid; place-items: center;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lightbox figure { margin: 0; display: grid; gap: 12px; max-width: 1400px; width: 100%; }
+.lightbox img { width: 100%; height: auto; max-height: 80vh; object-fit: contain; background: #fff; }
+.lightbox figcaption { color: var(--soft); font-size: 14px; }
+.lightbox .close { justify-self: end; }
+
+@media (max-width: 900px) {
+  .services { grid-template-columns: 1fr; grid-template-rows: none; row-gap: 40px; }
+  .svc { grid-row: auto; grid-template-rows: none; }
+  .process { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 28px; }
+  .case-body { grid-template-columns: 1fr; gap: 36px; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .facts > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .shots.two { grid-template-columns: 1fr; }
+  .about, .contact { grid-template-columns: 1fr; gap: 48px; }
+  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 28px; }
+  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .proof div:nth-child(n+3) { border-top: 1px solid var(--line); }
   .edge { width: 16px; }
 }
-@media (max-width: 520px) {
-  .hero { padding-block: 56px 48px; gap: 28px; }
-  .bar nav { gap: 14px; }
+@media (max-width: 560px) {
+  .hero { padding-block: 60px 56px; gap: 28px; }
+  section { padding-block: 64px 40px; }
+  .sec-head { margin-bottom: 36px; }
+  .bar nav { gap: 18px; }
   .bar nav a.hide-sm { display: none; }
   .flow { flex-direction: column; }
   .edge { width: 1px; height: 14px; align-self: flex-start; margin-left: 18px; }
   .edge::after, .pulse { display: none; }
   .cta .btn { flex: 1 1 100%; }
-  .psr div { grid-template-columns: 1fr; gap: 6px; }
+  .proof b { font-size: 26px; }
+  .case-head { padding: 28px 20px 0; }
+  .case-head h3 { font-size: 23px; }
+  .summary { font-size: 17px; }
+  .facts { grid-template-columns: 1fr; }
+  .facts > div, .facts > div + div, .facts > div:nth-child(3) { padding: 14px 0; border-left: 0; }
+  .facts > div + div { border-top: 1px solid var(--line); }
+  .case-body { padding: 32px 20px; }
+  .shots { padding: 0 20px 28px; }
+  .value { padding: 22px 20px; }
+  .adapt { padding: 20px; }
+  .process { grid-template-columns: 1fr; }
+  .row2 { grid-template-columns: 1fr; }
   form { padding: 24px 20px; }
-  .proj { padding: 24px 18px; }
-  .skills { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
-  .meta { grid-template-columns: 1fr; gap: 20px; }
+  .email, .profile { grid-template-columns: minmax(0, 1fr) auto; row-gap: 6px; }
+  .email .label, .profile .label { grid-column: 1 / -1; }
 }
-
-/* screenshots */
-.shots { grid-column: 1 / -1; display: grid; gap: 24px; padding-top: 8px; border-top: 1px solid var(--line); padding-top: 32px; }
-.shots.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
-.shot { margin: 0; display: grid; gap: 12px; min-width: 0; }
-.zoom { display: block; padding: 0; border: 1px solid var(--line); background: var(--bg); cursor: zoom-in; width: 100%; }
-.zoom img { display: block; width: 100%; height: auto; max-width: 100%; }
-.zoom:hover { border-color: var(--accent); }
-.shot figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.lightbox { position: fixed; inset: 0; z-index: 30; background: rgba(8, 8, 10, .92); display: grid; place-items: center; gap: 12px;
-  padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
-.lightbox figure { margin: 0; display: grid; gap: 10px; max-width: 1400px; width: 100%; }
-.lightbox img { width: 100%; height: auto; max-height: 80vh; object-fit: contain; background: #fff; }
-.lightbox figcaption { color: var(--soft); font-size: 14px; }
-.lightbox .close { justify-self: end; }
-.sec-head .dl { margin-top: 10px; }
-@media (max-width: 820px) { .shots.two { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -262,6 +293,7 @@ footer a { color: var(--muted); }
     <nav aria-label="Sections">
       <a href="#services" class="hide-sm">Services</a>
       <a href="#work">Work</a>
+      <a href="#process" class="hide-sm">Process</a>
       <a href="#about" class="hide-sm">About</a>
       <a href="#contact" class="nav-cta">Contact</a>
     </nav>
@@ -272,7 +304,7 @@ footer a { color: var(--muted); }
   <div class="hero" id="top">
     <div class="eyebrow">AI &amp; Automation · Coventry, UK</div>
     <h1>I build AI automations that remove <em>repetitive work</em>.</h1>
-    <p class="lede">I am Jesse Agu, an engineering graduate who designs AI-powered, no-code workflows in n8n and Make. I turn slow, manual processes, such as screening job applications or sorting customer feedback, into reliable systems that run on their own.</p>
+    <p class="lede">I am Jesse Agu, an engineering graduate who designs AI-powered, no-code workflows in n8n and Make. I help businesses respond faster, follow up on every enquiry and look after their customers, by turning slow, manual processes into reliable systems that run on their own.</p>
     <div class="flow" aria-label="How my automations work: a trigger starts the workflow, logic routes it, an AI step processes it, and the result is delivered">
       <div class="node"><b>Trigger</b><small>form, email, new record</small></div>
       <div class="edge"><i class="pulse"></i></div>
@@ -286,21 +318,34 @@ footer a { color: var(--muted); }
       <a class="btn primary" href="#work">View my work</a>
       <a class="btn" href="#contact">Get in touch</a>
     </div>
+    <div class="proof" aria-label="Project facts">
+      <div><b>2</b><span>Complete automation systems built and presented</span></div>
+      <div><b>12</b><span>Steps automated in the hiring workflow</span></div>
+      <div><b>5</b><span>AI-scored routes for customer feedback</span></div>
+      <div><b>11 s</b><span>To score, route and report feedback in testing</span></div>
+    </div>
   </div>
 
   <section id="services" aria-labelledby="services-h">
     <div class="sec-head">
       <h2 id="services-h">What I do</h2>
-      <p>Practical automation for teams and small businesses that are losing hours to manual work.</p>
+      <p>Automation that saves your team time and helps you win and keep more customers.</p>
     </div>
     <div class="services">
       <div class="svc">
-        <h3>Workflow automation</h3>
-        <p>Connect the tools you already use, such as forms, email and spreadsheets, so tasks move from one step to the next without anyone copying data across.</p>
+        <h3>Enquiry and lead handling</h3>
+        <p>Capture every enquiry, application or order, send an instant confirmation, alert the right person and log it in one place.</p>
+        <p class="outcome"><span class="label">Outcome</span>Faster replies and no missed opportunities.</p>
       </div>
       <div class="svc">
-        <h3>AI-powered processing</h3>
-        <p>Add an AI step that reads, sorts and summarises incoming information, so you get organised results instead of a pile of messages.</p>
+        <h3>AI-powered sorting</h3>
+        <p>Use AI to read, score and sort incoming messages, reviews and feedback, so urgent issues reach the right person first.</p>
+        <p class="outcome"><span class="label">Outcome</span>Problems handled before they cost you customers.</p>
+      </div>
+      <div class="svc">
+        <h3>Dashboards and reporting</h3>
+        <p>Bring results into a clear, live dashboard, so managers can see what is happening across teams or branches at a glance.</p>
+        <p class="outcome"><span class="label">Outcome</span>Better decisions without digging through spreadsheets.</p>
       </div>
     </div>
   </section>
@@ -308,51 +353,118 @@ footer a { color: var(--muted); }
   <section id="work" aria-labelledby="work-h">
     <div class="sec-head">
       <h2 id="work-h">Selected work</h2>
-      <p>Two automation projects built and presented during my AI &amp; Automation programme at TS Academy. Select a screenshot to view it full size.</p>
-      <div class="dl">
+      <p>Two complete automation systems, designed, built, tested and presented during my AI &amp; Automation programme at TS Academy.</p>
+      <div class="sec-tools">
         <a class="btn primary" href="jesse-agu-case-studies.pdf" download="Jesse-Agu-Automation-Case-Studies.pdf">Download case studies (PDF)</a>
+        <span class="label">Select any screenshot to view it full size</span>
       </div>
     </div>
-    <div class="projects">
+    <div class="cases">
 
-      <article class="proj lead">
-        <div class="proj-body">
-          <div class="status">Featured · Presented at TS Academy</div>
-          <h3>Job Application Tracker</h3>
-          <dl class="psr">
-            <div><dt>Problem</dt><dd>Every application has to be logged, acknowledged, passed to HR and sorted by experience before the right reply is sent. Done manually, this is slow and prone to error.</dd></div>
-            <div><dt>Solution</dt><dd>An n8n workflow that runs on every new application. It skips duplicates, saves the applicant, sends a confirmation email and alerts HR. It then sorts each applicant by experience: Junior (0–2 years), Mid-level (3–5 years) or Senior (6+ years). Each level is saved to its own sheet and receives the appropriate email, from a kept-on-file reply to an interview invitation.</dd></div>
-            <div><dt>Result</dt><dd>Tested with one applicant per experience level, then run live during the presentation. Every applicant was logged, emailed and filed to the correct sheet.</dd></div>
+      <article class="case lead" aria-labelledby="case1-h">
+        <div class="case-head">
+          <div class="status">Case study 01 · Presented at TS Academy</div>
+          <h3 id="case1-h">Job Application Tracker</h3>
+          <p class="summary">An automated hiring pipeline that confirms, records and sorts every job application the moment it arrives.</p>
+          <dl class="facts">
+            <div><dt>Platform</dt><dd>n8n</dd></div>
+            <div><dt>Workflow</dt><dd>12 automated steps</dd></div>
+            <div><dt>Starts when</dt><dd>A new application is received</dd></div>
+            <div><dt>Built with</dt><dd class="tags"><span class="tag">n8n</span><span class="tag">Google Sheets</span><span class="tag">Gmail</span></dd></div>
           </dl>
         </div>
-        <dl class="meta">
-          <div><dt>Platform</dt><dd>n8n · 12 nodes</dd></div>
-          <div><dt>Tools</dt><dd class="tags"><span class="tag">n8n</span><span class="tag">Google Sheets</span><span class="tag">Gmail</span></dd></div>
-        </dl>
+        <div class="case-body">
+          <div class="case-main">
+            <div class="block">
+              <h4 class="label">The challenge</h4>
+              <p>Every application has to be logged, acknowledged, passed to HR and sorted by experience before the right reply is sent. Done manually, this is slow and inconsistent, and applicants are left waiting.</p>
+            </div>
+            <div class="block">
+              <h4 class="label">How it works</h4>
+              <ol class="steps">
+                <li><span><b>Capture.</b> A new application starts the workflow. Applications already processed are skipped, so nobody is emailed twice.</span></li>
+                <li><span><b>Record and respond.</b> The applicant is saved to an All Applicants sheet and receives an instant confirmation, and HR is alerted.</span></li>
+                <li><span><b>Sort.</b> A rules-based switch groups applicants by experience: Junior (0–2 years), Mid-level (3–5 years) or Senior (6+ years).</span></li>
+                <li><span><b>Follow up.</b> Each group is saved to its own sheet. Junior applicants receive a kept-on-file email; mid-level and senior applicants receive an interview invitation.</span></li>
+              </ol>
+            </div>
+            <div class="block">
+              <h4 class="label">Result</h4>
+              <p>Tested with one applicant per experience level, then run live during the presentation. Every applicant was recorded, emailed and filed to the correct sheet with no manual steps.</p>
+            </div>
+          </div>
+          <div class="case-side">
+            <div class="value">
+              <h4 class="label">Business value</h4>
+              <ul>
+                <li><b>Instant replies.</b> Every applicant hears back within seconds, which protects the employer's reputation.</li>
+                <li><b>Time saved.</b> HR no longer copies details between forms, sheets and inboxes.</li>
+                <li><b>Faster hiring.</b> Strong candidates reach the interview stage sooner, before competitors contact them.</li>
+              </ul>
+            </div>
+            <div class="adapt">
+              <h4 class="label">Also works for sales</h4>
+              <p>The same workflow can handle sales leads and quote requests: an instant confirmation, an alert to the sales team, and sorting by budget, service or location, so the most valuable leads are followed up first.</p>
+            </div>
+          </div>
+        </div>
         <div class="shots">
           <figure class="shot">
             <button type="button" class="zoom" data-src="shot-tracker-n8n.jpg" data-cap="The Job Application Tracker workflow in n8n" aria-label="View the n8n workflow full size">
               <img src="shot-tracker-n8n.jpg" alt="n8n workflow: Google Sheets trigger, skip duplicates, save to all applicants, confirmation email, HR alert, then a switch sorting applicants into Junior, Mid-level and Senior sheets and emails" width="1600" height="501" loading="lazy">
             </button>
-            <figcaption>The workflow in n8n</figcaption>
+            <figcaption>The complete workflow in n8n</figcaption>
           </figure>
         </div>
       </article>
 
-      <article class="proj">
-        <div class="proj-body">
-          <div class="status">Capstone · Team project</div>
-          <h3>Customer Feedback Automation</h3>
-          <dl class="psr">
-            <div><dt>Problem</dt><dd>A car care chain with branches in Manchester, Leeds, Liverpool and London receives more feedback than it can review quickly. Urgent complaints are delayed, and managers have no single view of each branch.</dd></div>
-            <div><dt>Solution</dt><dd>A Make scenario that picks up new feedback, checks the customer's history and uses ChatGPT to score sentiment and severity. A router then sends each item down one of five routes, such as ready to post, private queue, manager alert or needs human review. Every route logs to Google Sheets and the management dashboard, and urgent cases also email the manager.</dd></div>
-            <div><dt>Result</dt><dd>In testing, the scenario processed feedback in 11 seconds. The dashboard showed volume by branch, average sentiment and severity, routing outcomes, and draft replies for negative feedback.</dd></div>
+      <article class="case" aria-labelledby="case2-h">
+        <div class="case-head">
+          <div class="status">Case study 02 · Capstone team project</div>
+          <h3 id="case2-h">Customer Feedback Automation</h3>
+          <p class="summary">An AI-powered system that scores every piece of customer feedback, sends it to the right place and reports the results on a live management dashboard.</p>
+          <dl class="facts">
+            <div><dt>Platform</dt><dd>Make and Airtable</dd></div>
+            <div><dt>Client</dt><dd>Car care chain with four branches</dd></div>
+            <div><dt>Speed</dt><dd>11 seconds per run in testing</dd></div>
+            <div><dt>Built with</dt><dd class="tags"><span class="tag">Make</span><span class="tag">OpenAI</span><span class="tag">Google Sheets</span><span class="tag">Airtable</span><span class="tag">Gmail</span></dd></div>
           </dl>
         </div>
-        <dl class="meta">
-          <div><dt>Client type</dt><dd>Car care chain with four branches</dd></div>
-          <div><dt>Tools</dt><dd class="tags"><span class="tag">Make</span><span class="tag">OpenAI</span><span class="tag">Google Sheets</span><span class="tag">Airtable</span><span class="tag">Gmail</span></dd></div>
-        </dl>
+        <div class="case-body">
+          <div class="case-main">
+            <div class="block">
+              <h4 class="label">The challenge</h4>
+              <p>A car care chain with branches in Manchester, Leeds, Liverpool and London receives more feedback than it can review quickly. Urgent complaints are delayed, good reviews go unused, and managers have no single view of each branch.</p>
+            </div>
+            <div class="block">
+              <h4 class="label">How it works</h4>
+              <ol class="steps">
+                <li><span><b>Collect.</b> New feedback starts the Make scenario, which first checks the customer's history.</span></li>
+                <li><span><b>Score.</b> ChatGPT rates each comment for sentiment and severity.</span></li>
+                <li><span><b>Route.</b> A router sends it down one of five routes, including ready to post, private queue, manager alert and needs human review.</span></li>
+                <li><span><b>Act and report.</b> Every item is logged to Google Sheets and the management dashboard. Urgent cases email the manager, and negative feedback comes with an AI-drafted reply.</span></li>
+              </ol>
+            </div>
+            <div class="block">
+              <h4 class="label">Result</h4>
+              <p>In testing, each piece of feedback was scored, routed and reported in 11 seconds. The dashboard showed feedback by branch, average sentiment and severity, and where every item was sent.</p>
+            </div>
+          </div>
+          <div class="case-side">
+            <div class="value">
+              <h4 class="label">Business value</h4>
+              <ul>
+                <li><b>Customers kept.</b> Urgent complaints reach a manager in seconds, so problems can be fixed before a customer leaves.</li>
+                <li><b>More reviews.</b> Positive feedback is queued as ready to post, turning happy customers into public reviews that attract new business.</li>
+                <li><b>Clear oversight.</b> Managers compare branches at a glance and act where it matters most.</li>
+              </ul>
+            </div>
+            <div class="adapt">
+              <h4 class="label">Also works for</h4>
+              <p>Any business that collects reviews, surveys or support messages, including restaurants, salons, garages, retailers and service companies.</p>
+            </div>
+          </div>
+        </div>
         <div class="shots two">
           <figure class="shot">
             <button type="button" class="zoom" data-src="shot-capstone-make.jpg" data-cap="The Make scenario: new feedback, score, check history, route" aria-label="View the Make scenario full size">
@@ -364,12 +476,25 @@ footer a { color: var(--muted); }
             <button type="button" class="zoom" data-src="shot-capstone-dashboard.jpg" data-cap="The management dashboard: feedback by branch and where it was routed" aria-label="View the management dashboard full size">
               <img src="shot-capstone-dashboard.jpg" alt="Management dashboard showing feedback received, average sentiment, average severity, feedback by branch and where feedback was routed" width="1600" height="803" loading="lazy">
             </button>
-            <figcaption>The management dashboard</figcaption>
+            <figcaption>The management dashboard in Airtable</figcaption>
           </figure>
         </div>
       </article>
 
     </div>
+  </section>
+
+  <section id="process" aria-labelledby="process-h">
+    <div class="sec-head">
+      <h2 id="process-h">How I work</h2>
+      <p>A clear four-step process, so you know exactly what you are getting.</p>
+    </div>
+    <ol class="process">
+      <li><h3>Map</h3><p>I learn how the task is done today and where time is being lost.</p></li>
+      <li><h3>Build</h3><p>I design the workflow in n8n or Make, connected to the tools you already use.</p></li>
+      <li><h3>Test</h3><p>I run it with realistic examples for every scenario before it goes live.</p></li>
+      <li><h3>Hand over</h3><p>You receive a working system and a clear explanation of how it runs.</p></li>
+    </ol>
   </section>
 
   <section id="about" aria-labelledby="about-h">
@@ -384,7 +509,7 @@ footer a { color: var(--muted); }
         <li><span>Next</span><div><b>Data Analytics programme</b><small>TS Academy</small></div></li>
         <li><span>2026</span><div><b>AI &amp; Automation programme</b><small>TS Academy · completed</small></div></li>
         <li><span>Role</span><div><b>Generalist AI trainer</b><small>Outlier · Aether project</small></div></li>
-        <li><span>Degree</span><div><b>Automotive Engineering</b><small>Specialism in product innovation</small></div></li>
+        <li><span>Degree</span><div><b>BEng Automotive Engineering</b><small>Strongest area: product innovation</small></div></li>
       </ol>
     </div>
   </section>
@@ -405,13 +530,14 @@ footer a { color: var(--muted); }
       <div class="contact-side">
         <p>Hiring for an automation role, or looking to automate a repetitive task in your business? Send me a message and I will get back to you.</p>
         <div class="email">
+          <span class="label">Email</span>
           <output id="email-addr">jesseagu081@gmail.com</output>
           <button class="linkbtn" type="button" id="copy-email">Copy</button>
         </div>
         <p class="note" id="copy-note" aria-live="polite"></p>
         <a class="profile" href="https://www.linkedin.com/in/jesse-agu-869667297" target="_blank" rel="noopener">
-          <span class="profile-label">LinkedIn</span>
-          <span class="profile-url">View my profile</span>
+          <span class="label">LinkedIn</span>
+          <span>View my profile</span>
           <span class="profile-go" aria-hidden="true">↗</span>
         </a>
       </div>
