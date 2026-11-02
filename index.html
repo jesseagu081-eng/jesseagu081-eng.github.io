@@ -175,49 +175,6 @@ section { padding-block: 88px 48px; scroll-margin-top: 64px; border-top: 1px sol
 .shot figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
 
-/* workflow maps */
-.wmap { margin: 0 44px 40px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
-.wchain { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 14px; }
-.wstep { position: relative; background: var(--bg); border: 1px solid var(--line); padding: 14px 14px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
-.wchain .wstep:not(:last-child)::after { content: ""; position: absolute; right: -11px; top: 50%; width: 0; height: 0; border: 4px solid transparent; border-left: 6px solid var(--accent); transform: translateY(-50%); }
-.wtool { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 7px; line-height: 1.35; }
-.dot { width: 8px; height: 8px; flex: none; display: inline-block; }
-.dot.sheets { background: #3f9a66; } .dot.mail { background: #d0675d; } .dot.logic { background: var(--accent); } .dot.ai { background: var(--accent); border-radius: 50%; } .dot.dash { background: #8676d6; }
-.wstep b { font-weight: 600; font-size: 14.5px; line-height: 1.35; color: var(--fg); }
-.wstep p { color: var(--soft); font-size: 13px; line-height: 1.5; }
-.wsplit { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
-.wsplit::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-.wroutes { display: grid; gap: 10px; }
-.wroute { display: grid; grid-template-columns: minmax(0, 190px) repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.wcond { border-left: 2px solid var(--accent); background: var(--panel-2); padding: 12px 14px; display: grid; gap: 2px; align-content: center; }
-.wcond b { font-weight: 600; font-size: 14px; line-height: 1.35; }
-.wcond span { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.wroute .wstep:not(:last-child)::after { content: ""; position: absolute; right: -11px; top: 50%; border: 4px solid transparent; border-left: 6px solid var(--accent); transform: translateY(-50%); }
-.wroute .wcond + .wstep::before { content: ""; position: absolute; left: -11px; top: 50%; border: 4px solid transparent; border-left: 6px solid var(--accent); transform: translateY(-50%); }
-@media (max-width: 900px) {
-  .wchain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .wchain .wstep::after, .wroute .wstep::after, .wroute .wcond + .wstep::before { display: none; }
-  .wroute { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .wcond { grid-column: 1 / -1; }
-}
-@media (max-width: 560px) {
-  .wmap { margin: 0 20px 32px; padding-top: 28px; }
-  .wchain, .wroute { grid-template-columns: 1fr; gap: 10px; }
-  .wroute { padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-  .wroute:last-child { border-bottom: 0; padding-bottom: 0; }
-}
-
-
-/* labelled Make scenario */
-.scenario { margin: 0 44px 40px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
-.scenario-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; }
-.scenario-hint { display: none; }
-.scenario-scroll { overflow-x: auto; border: 1px solid var(--line); background: #f5f5f5; }
-.scenario-zoom { border: 0; background: #f5f5f5; }
-.scenario-zoom img { min-width: 760px; }
-@media (max-width: 900px) { .scenario-hint { display: inline; } }
-@media (max-width: 560px) { .scenario { margin: 0 20px 32px; padding-top: 28px; } }
-
 /* process */
 .process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; counter-reset: p; }
 .process li { counter-increment: p; display: grid; gap: 12px; align-content: start; padding-top: 22px; border-top: 1px solid var(--line); }
@@ -453,12 +410,6 @@ footer a { color: var(--muted); }
           </div>
         </div>
 
-        <div class="wmap">
-          <div class="wmap-head"><h4 class="label">Workflow map · what each step does</h4></div>
-          <div class="wchain" style="--n:6"><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · trigger</span><b>New application</b><p>Starts the workflow when a new application row is added.</p></div><div class="wstep"><span class="wtool"><i class="dot logic"></i>Duplicate check</span><b>Skip processed</b><p>Ignores applications that have already been handled.</p></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save applicant</b><p>Adds every applicant to the All Applicants sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Confirm to applicant</b><p>Sends the applicant an instant confirmation email.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Alert HR</b><p>Notifies the HR team about the new applicant.</p></div><div class="wstep"><span class="wtool"><i class="dot logic"></i>Switch · rules</span><b>Sort by experience</b><p>Chooses a path based on years of experience.</p></div></div>
-          <div class="wsplit"><span class="label">Then one of three paths</span></div>
-          <div class="wroutes"><div class="wroute"><div class="wcond"><b>Junior</b><span>0–2 years</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save to Junior sheet</b><p>Files the applicant with junior candidates.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Kept-on-file email</b><p>Thanks them and keeps their details for future roles.</p></div></div><div class="wroute"><div class="wcond"><b>Mid-level</b><span>3–5 years</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save to Mid-level sheet</b><p>Files the applicant with mid-level candidates.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Interview invitation</b><p>Invites the applicant to an interview.</p></div></div><div class="wroute"><div class="wcond"><b>Senior</b><span>6+ years</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save to Senior sheet</b><p>Files the applicant with senior candidates.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Senior interview invitation</b><p>Invites the applicant to a senior-level interview.</p></div></div></div>
-        </div>
         <div class="shots">
           <figure class="shot">
             <button type="button" class="zoom" data-src="shot-tracker-n8n.jpg" data-cap="The Job Application Tracker workflow in n8n" aria-label="View the n8n workflow full size">
@@ -517,17 +468,6 @@ footer a { color: var(--muted); }
           </div>
         </div>
 
-        <div class="scenario">
-          <div class="scenario-head">
-            <h4 class="label">The Make scenario · what each module does</h4>
-            <span class="label scenario-hint">Swipe to see the full scenario · tap to enlarge</span>
-          </div>
-          <div class="scenario-scroll">
-            <button type="button" class="zoom scenario-zoom" data-src="capstone-scenario.svg" data-cap="Labelled Make scenario: every module, filter route and dashboard destination" aria-label="View the labelled Make scenario full size">
-              <img src="capstone-scenario.svg" alt="Make scenario. Google Sheets watches new rows, updates the customer record and reads complaint history; OpenAI scores the feedback; a router sends it down five routes: AI unsure to needs human review, negative with complaint history to manager alert and email, negative and severe to manager alert and email, mild negative to private queue with draft reply, and positive or neutral to ready to post. Every route adds a Google Sheets row and creates a Management Dashboard record." width="1404" height="712">
-            </button>
-          </div>
-        </div>
         <div class="shots two">
           <figure class="shot">
             <button type="button" class="zoom" data-src="shot-capstone-make.jpg" data-cap="The Make scenario: new feedback, score, check history, route" aria-label="View the Make scenario full size">
