@@ -174,6 +174,39 @@ section { padding-block: 88px 48px; scroll-margin-top: 64px; border-top: 1px sol
 .zoom:hover { border-color: var(--accent); }
 .shot figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
+
+/* workflow maps */
+.wmap { margin: 0 44px 40px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
+.wchain { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 14px; }
+.wstep { position: relative; background: var(--bg); border: 1px solid var(--line); padding: 14px 14px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.wchain .wstep:not(:last-child)::after { content: ""; position: absolute; right: -11px; top: 50%; width: 0; height: 0; border: 4px solid transparent; border-left: 6px solid var(--accent); transform: translateY(-50%); }
+.wtool { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 7px; line-height: 1.35; }
+.dot { width: 8px; height: 8px; flex: none; display: inline-block; }
+.dot.sheets { background: #3f9a66; } .dot.mail { background: #d0675d; } .dot.logic { background: var(--accent); } .dot.ai { background: var(--accent); border-radius: 50%; } .dot.dash { background: #8676d6; }
+.wstep b { font-weight: 600; font-size: 14.5px; line-height: 1.35; color: var(--fg); }
+.wstep p { color: var(--soft); font-size: 13px; line-height: 1.5; }
+.wsplit { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
+.wsplit::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.wroutes { display: grid; gap: 10px; }
+.wroute { display: grid; grid-template-columns: minmax(0, 190px) repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
+.wcond { border-left: 2px solid var(--accent); background: var(--panel-2); padding: 12px 14px; display: grid; gap: 2px; align-content: center; }
+.wcond b { font-weight: 600; font-size: 14px; line-height: 1.35; }
+.wcond span { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.wroute .wstep:not(:last-child)::after { content: ""; position: absolute; right: -11px; top: 50%; border: 4px solid transparent; border-left: 6px solid var(--accent); transform: translateY(-50%); }
+.wroute .wcond + .wstep::before { content: ""; position: absolute; left: -11px; top: 50%; border: 4px solid transparent; border-left: 6px solid var(--accent); transform: translateY(-50%); }
+@media (max-width: 900px) {
+  .wchain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wchain .wstep::after, .wroute .wstep::after, .wroute .wcond + .wstep::before { display: none; }
+  .wroute { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wcond { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .wmap { margin: 0 20px 32px; padding-top: 28px; }
+  .wchain, .wroute { grid-template-columns: 1fr; gap: 10px; }
+  .wroute { padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .wroute:last-child { border-bottom: 0; padding-bottom: 0; }
+}
+
 /* process */
 .process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; counter-reset: p; }
 .process li { counter-increment: p; display: grid; gap: 12px; align-content: start; padding-top: 22px; border-top: 1px solid var(--line); }
@@ -408,6 +441,13 @@ footer a { color: var(--muted); }
             </div>
           </div>
         </div>
+
+        <div class="wmap">
+          <div class="wmap-head"><h4 class="label">Workflow map · what each step does</h4></div>
+          <div class="wchain" style="--n:6"><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · trigger</span><b>New application</b><p>Starts the workflow when a new application row is added.</p></div><div class="wstep"><span class="wtool"><i class="dot logic"></i>Duplicate check</span><b>Skip processed</b><p>Ignores applications that have already been handled.</p></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save applicant</b><p>Adds every applicant to the All Applicants sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Confirm to applicant</b><p>Sends the applicant an instant confirmation email.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Alert HR</b><p>Notifies the HR team about the new applicant.</p></div><div class="wstep"><span class="wtool"><i class="dot logic"></i>Switch · rules</span><b>Sort by experience</b><p>Chooses a path based on years of experience.</p></div></div>
+          <div class="wsplit"><span class="label">Then one of three paths</span></div>
+          <div class="wroutes"><div class="wroute"><div class="wcond"><b>Junior</b><span>0–2 years</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save to Junior sheet</b><p>Files the applicant with junior candidates.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Kept-on-file email</b><p>Thanks them and keeps their details for future roles.</p></div></div><div class="wroute"><div class="wcond"><b>Mid-level</b><span>3–5 years</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save to Mid-level sheet</b><p>Files the applicant with mid-level candidates.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Interview invitation</b><p>Invites the applicant to an interview.</p></div></div><div class="wroute"><div class="wcond"><b>Senior</b><span>6+ years</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · append</span><b>Save to Senior sheet</b><p>Files the applicant with senior candidates.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Senior interview invitation</b><p>Invites the applicant to a senior-level interview.</p></div></div></div>
+        </div>
         <div class="shots">
           <figure class="shot">
             <button type="button" class="zoom" data-src="shot-tracker-n8n.jpg" data-cap="The Job Application Tracker workflow in n8n" aria-label="View the n8n workflow full size">
@@ -439,10 +479,10 @@ footer a { color: var(--muted); }
             <div class="block">
               <h4 class="label">How it works</h4>
               <ol class="steps">
-                <li><span><b>Collect.</b> New feedback starts the Make scenario, which first checks the customer's history.</span></li>
-                <li><span><b>Score.</b> ChatGPT rates each comment for sentiment and severity.</span></li>
-                <li><span><b>Route.</b> A router sends it down one of five routes, including ready to post, private queue, manager alert and needs human review.</span></li>
-                <li><span><b>Act and report.</b> Every item is logged to Google Sheets and the management dashboard. Urgent cases email the manager, and negative feedback comes with an AI-drafted reply.</span></li>
+                <li><span><b>Collect.</b> New feedback starts the Make scenario, which updates the customer's record and checks whether they have complained before.</span></li>
+                <li><span><b>Score.</b> ChatGPT rates each comment for sentiment and severity, and flags when it is unsure.</span></li>
+                <li><span><b>Route.</b> A router sends it down one of five routes: AI unsure, negative with complaint history, negative and severe, mild negative, or positive and neutral.</span></li>
+                <li><span><b>Act and report.</b> Every item is logged to Google Sheets and listed on the dashboard as needs human review, manager alert, private queue or ready to post. Both negative routes also email the manager.</span></li>
               </ol>
             </div>
             <div class="block">
@@ -464,6 +504,13 @@ footer a { color: var(--muted); }
               <p>Any business that collects reviews, surveys or support messages, including restaurants, salons, garages, retailers and service companies.</p>
             </div>
           </div>
+        </div>
+
+        <div class="wmap">
+          <div class="wmap-head"><h4 class="label">Workflow map · what each step does</h4></div>
+          <div class="wchain" style="--n:5"><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · watch rows</span><b>New feedback</b><p>Starts the scenario when a customer submits feedback.</p></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · update a cell</span><b>Update customer record</b><p>Records this feedback against the customer.</p></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · get a cell</span><b>Check complaint history</b><p>Reads whether the customer has complained before.</p></div><div class="wstep"><span class="wtool"><i class="dot ai"></i>OpenAI · ChatGPT</span><b>Score feedback</b><p>Rates sentiment and severity, and flags when it is unsure.</p></div><div class="wstep"><span class="wtool"><i class="dot logic"></i>Make · router</span><b>Choose a route</b><p>Sends the feedback down one of five routes.</p></div></div>
+          <div class="wsplit"><span class="label">Then one of five routes</span></div>
+          <div class="wroutes"><div class="wroute"><div class="wcond"><b>AI unsure</b><span>low confidence</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Needs human review</b><p>Listed for a person to check before any reply.</p></div></div><div class="wroute"><div class="wcond"><b>Negative + complaint history</b><span>repeat complaint</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Manager alert</b><p>Flagged on the dashboard as a repeat complaint.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Email the manager</b><p>Sends the branch manager an urgent alert.</p></div></div><div class="wroute"><div class="wcond"><b>Negative + severe</b><span>serious complaint</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Manager alert</b><p>Flagged on the dashboard as a serious complaint.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Email the manager</b><p>Sends the branch manager an urgent alert.</p></div></div><div class="wroute"><div class="wcond"><b>Mild negative</b><span>minor issue</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Private queue</b><p>Handled privately, with an AI-drafted reply ready to send.</p></div></div><div class="wroute"><div class="wcond"><b>Positive or neutral</b><span>happy customer</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Ready to post</b><p>Queued to be shared as a public review.</p></div></div></div>
         </div>
         <div class="shots two">
           <figure class="shot">
