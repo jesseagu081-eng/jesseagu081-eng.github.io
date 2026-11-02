@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1404 712" role="img" aria-labelledby="mk-title mk-desc">
+<title id="mk-title">Make scenario: New feedback, score, check history, route</title>
+<desc id="mk-desc">New feedback is watched in Google Sheets, the customer record is updated, complaint history is read, ChatGPT scores the feedback and a router sends it down one of five routes. Each route adds a row to Google Sheets and creates a Management Dashboard record; the two negative routes also email the manager.</desc>
+<defs><pattern id="mkgrid" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#dcdcdc"/></pattern></defs>
+<rect width="1404" height="712" fill="#f5f5f5"/><rect width="1404" height="712" fill="url(#mkgrid)"/>
+<text x="28" y="38" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#1d1f23">2. New feedback → score, check history, route</text>
+<text x="28" y="58" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10.5" fill="#6b6f76">MAKE SCENARIO · 21 MODULES · 5 ROUTES</text>
+<path d="M133,350 H177" fill="none" stroke="#86d0a2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M279,350 H323" fill="none" stroke="#86d0a2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M425,350 H469" fill="none" stroke="#86d0a2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M571,350 H611" fill="none" stroke="#86d0a2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M704,350 C727.0,350 727.0,95 780,95 H974" fill="none" stroke="#9dd8a9" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M704,350 C727.0,350 727.0,222 780,222 H974" fill="none" stroke="#9dd8a9" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M704,350 C727.0,350 727.0,350 780,350 H974" fill="none" stroke="#9dd8a9" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M704,350 C727.0,350 727.0,478 780,478 H974" fill="none" stroke="#9dd8a9" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M704,350 C727.0,350 727.0,605 780,605 H974" fill="none" stroke="#9dd8a9" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M1064,95 H1134" fill="none" stroke="#8fd3f2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M1064,222 H1134" fill="none" stroke="#8fd3f2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M1222,222 H1292" fill="none" stroke="#d8a3ae" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M1064,350 H1134" fill="none" stroke="#8fd3f2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M1222,350 H1292" fill="none" stroke="#d8a3ae" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M1064,478 H1134" fill="none" stroke="#8fd3f2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<path d="M1064,605 H1134" fill="none" stroke="#8fd3f2" stroke-width="6" stroke-linecap="round" stroke-dasharray="0.1 10"/>
+<rect x="823.1" y="79.5" width="132.8" height="33" rx="16.5" fill="#000" opacity=".06"/>
+<rect x="821.6" y="78" width="132.8" height="33" rx="16.5" fill="#fff" stroke="#dcdde0"/>
+<path d="M831.6,89 h12 l-4.6,5.4 v5.6 l-2.8,1.6 v-7.2 z" fill="none" stroke="#1f9d5a" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="851.6" y="92.5" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#1d1f23">AI unsure</text>
+<text x="851.6" y="105.5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="9.5" fill="#6b6f76">low confidence</text>
+<rect x="803.5" y="206.5" width="172.0" height="33" rx="16.5" fill="#000" opacity=".06"/>
+<rect x="802.0" y="205" width="172.0" height="33" rx="16.5" fill="#fff" stroke="#dcdde0"/>
+<path d="M812.0,216 h12 l-4.6,5.4 v5.6 l-2.8,1.6 v-7.2 z" fill="none" stroke="#1f9d5a" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="832.0" y="219.5" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#1d1f23">Negative + history</text>
+<text x="832.0" y="232.5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="9.5" fill="#6b6f76">repeat complaint</text>
+<rect x="807.0" y="334.5" width="165.0" height="33" rx="16.5" fill="#000" opacity=".06"/>
+<rect x="805.5" y="333" width="165.0" height="33" rx="16.5" fill="#fff" stroke="#dcdde0"/>
+<path d="M815.5,344 h12 l-4.6,5.4 v5.6 l-2.8,1.6 v-7.2 z" fill="none" stroke="#1f9d5a" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="835.5" y="347.5" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#1d1f23">Negative + severe</text>
+<text x="835.5" y="360.5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="9.5" fill="#6b6f76">serious complaint</text>
+<rect x="821.0" y="462.5" width="137.0" height="33" rx="16.5" fill="#000" opacity=".06"/>
+<rect x="819.5" y="461" width="137.0" height="33" rx="16.5" fill="#fff" stroke="#dcdde0"/>
+<path d="M829.5,472 h12 l-4.6,5.4 v5.6 l-2.8,1.6 v-7.2 z" fill="none" stroke="#1f9d5a" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="849.5" y="475.5" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#1d1f23">Mild negative</text>
+<text x="849.5" y="488.5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="9.5" fill="#6b6f76">minor issue</text>
+<rect x="803.5" y="589.5" width="172.0" height="33" rx="16.5" fill="#000" opacity=".06"/>
+<rect x="802.0" y="588" width="172.0" height="33" rx="16.5" fill="#fff" stroke="#dcdde0"/>
+<path d="M812.0,599 h12 l-4.6,5.4 v5.6 l-2.8,1.6 v-7.2 z" fill="none" stroke="#1f9d5a" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="832.0" y="602.5" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#1d1f23">Positive / neutral</text>
+<text x="832.0" y="615.5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="9.5" fill="#6b6f76">happy customer</text>
+<ellipse cx="84" cy="380.36" rx="30.360000000000003" ry="7.26" fill="#000" opacity=".08"/>
+<circle cx="53.620000000000005" cy="350" r="13.86" fill="#1f9d5a" opacity=".35"/>
+<circle cx="110.38" cy="350" r="13.86" fill="#1f9d5a" opacity=".35"/>
+<circle cx="82" cy="350" r="33" fill="#1f9d5a"/>
+<g transform="translate(82,350) scale(1.2692307692307692)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<circle cx="58.24" cy="373.76" r="11.879999999999999" fill="#fff" stroke="#1f9d5a" stroke-width="2.4"/>
+<path d="M58.24,367.15999999999997 V373.76 L62.86,377.06" stroke="#1f9d5a" stroke-width="2" fill="none" stroke-linecap="round"/>
+<text x="82" y="403" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">1</tspan></text>
+<text x="82" y="419" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Watch New Rows</text>
+<text x="82" y="436" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Picks up new feedback</text>
+<ellipse cx="230" cy="380.36" rx="30.360000000000003" ry="7.26" fill="#000" opacity=".08"/>
+<circle cx="199.62" cy="350" r="13.86" fill="#1f9d5a" opacity=".35"/>
+<circle cx="256.38" cy="350" r="13.86" fill="#1f9d5a" opacity=".35"/>
+<circle cx="228" cy="350" r="33" fill="#1f9d5a"/>
+<g transform="translate(228,350) scale(1.2692307692307692)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<text x="228" y="403" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">2</tspan></text>
+<text x="228" y="419" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Update a Cell</text>
+<text x="228" y="436" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Updates the customer</text>
+<ellipse cx="376" cy="380.36" rx="30.360000000000003" ry="7.26" fill="#000" opacity=".08"/>
+<circle cx="345.62" cy="350" r="13.86" fill="#1f9d5a" opacity=".35"/>
+<circle cx="402.38" cy="350" r="13.86" fill="#1f9d5a" opacity=".35"/>
+<circle cx="374" cy="350" r="33" fill="#1f9d5a"/>
+<g transform="translate(374,350) scale(1.2692307692307692)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<text x="374" y="403" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">3</tspan></text>
+<text x="374" y="419" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Get a Cell</text>
+<text x="374" y="436" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Reads complaint history</text>
+<ellipse cx="522" cy="380.36" rx="30.360000000000003" ry="7.26" fill="#000" opacity=".08"/>
+<circle cx="491.62" cy="350" r="13.86" fill="#0f8f6f" opacity=".35"/>
+<circle cx="548.38" cy="350" r="13.86" fill="#0f8f6f" opacity=".35"/>
+<circle cx="520" cy="350" r="33" fill="#0f8f6f"/>
+<g transform="translate(520,350) scale(1.2692307692307692)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="0.00,-11.00 2.26,-2.26 11.00,0.00 2.26,2.26 0.00,11.00 -2.26,2.26 -11.00,0.00 -2.26,-2.26" fill="#fff" stroke="none"/></g>
+<text x="520" y="403" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">OpenAI (ChatGPT)<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">4</tspan></text>
+<text x="520" y="419" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Generate a completion</text>
+<text x="520" y="436" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Scores sentiment</text>
+<ellipse cx="664" cy="384.04" rx="34.04" ry="8.14" fill="#000" opacity=".08"/>
+<circle cx="630.18" cy="350" r="15.54" fill="#9fd36a" opacity=".35"/>
+<circle cx="693.82" cy="350" r="15.54" fill="#9fd36a" opacity=".35"/>
+<circle cx="662" cy="350" r="37" fill="#9fd36a"/>
+<g transform="translate(662,350) scale(1.4230769230769231)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-11,0 h7"/><path d="M-4,0 C1,0 2,-8 8,-8"/><path d="M-4,0 h12"/><path d="M-4,0 C1,0 2,8 8,8"/><path d="M6,-11 l3,3 -3,3 M6,-3 l3,3 -3,3 M6,5 l3,3 -3,3" stroke-width="1.8"/></g>
+<text x="662" y="407" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Router</text>
+<text x="662" y="423" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">5 routes</text>
+<text x="662" y="440" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Picks the route</text>
+<ellipse cx="1022" cy="120.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="995.92" cy="95" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1044.08" cy="95" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1020" cy="95" r="28" fill="#1f9d5a"/>
+<g transform="translate(1020,95) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<text x="1020" y="143" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">6</tspan></text>
+<text x="1020" y="159" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Add a Row</text>
+<text x="1020" y="176" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Logs the feedback</text>
+<ellipse cx="1180" cy="120.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="1153.92" cy="95" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1202.08" cy="95" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1178" cy="95" r="28" fill="#27aee8"/>
+<g transform="translate(1178,95) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-11,-4 L0,-10 L11,-4 L0,2 Z" fill="#fff" stroke="none"/><path d="M-11,1 L0,7 L11,1" /><path d="M-11,6 L0,12 L11,6" opacity=".85"/></g>
+<text x="1178" y="143" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Management Dashboard<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">8</tspan></text>
+<text x="1178" y="159" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Create a Record</text>
+<text x="1178" y="176" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#9a7b25">→ Needs human review</text>
+<ellipse cx="1022" cy="247.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="995.92" cy="222" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1044.08" cy="222" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1020" cy="222" r="28" fill="#1f9d5a"/>
+<g transform="translate(1020,222) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<text x="1020" y="270" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">12</tspan></text>
+<text x="1020" y="286" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Add a Row</text>
+<text x="1020" y="303" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Logs the feedback</text>
+<ellipse cx="1180" cy="247.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="1153.92" cy="222" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1202.08" cy="222" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1178" cy="222" r="28" fill="#27aee8"/>
+<g transform="translate(1178,222) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-11,-4 L0,-10 L11,-4 L0,2 Z" fill="#fff" stroke="none"/><path d="M-11,1 L0,7 L11,1" /><path d="M-11,6 L0,12 L11,6" opacity=".85"/></g>
+<text x="1178" y="270" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Management Dashboard<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">13</tspan></text>
+<text x="1178" y="286" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Create a Record</text>
+<text x="1178" y="303" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#9a7b25">→ Manager alert</text>
+<ellipse cx="1338" cy="247.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="1311.92" cy="222" r="11.76" fill="#e2483d" opacity=".35"/>
+<circle cx="1360.08" cy="222" r="11.76" fill="#e2483d" opacity=".35"/>
+<circle cx="1336" cy="222" r="28" fill="#e2483d"/>
+<g transform="translate(1336,222) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="-11" y="-8" width="22" height="16" rx="1.5" fill="#fff" stroke="none"/><path d="M-11,-8 L0,1 L11,-8" stroke="#e2483d" stroke-width="2"/></g>
+<text x="1336" y="270" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Manager Gmail<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">14</tspan></text>
+<text x="1336" y="286" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Send an Email</text>
+<text x="1336" y="303" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Alerts the manager</text>
+<ellipse cx="1022" cy="375.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="995.92" cy="350" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1044.08" cy="350" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1020" cy="350" r="28" fill="#1f9d5a"/>
+<g transform="translate(1020,350) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<text x="1020" y="398" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">15</tspan></text>
+<text x="1020" y="414" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Add a Row</text>
+<text x="1020" y="431" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Logs the feedback</text>
+<ellipse cx="1180" cy="375.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="1153.92" cy="350" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1202.08" cy="350" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1178" cy="350" r="28" fill="#27aee8"/>
+<g transform="translate(1178,350) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-11,-4 L0,-10 L11,-4 L0,2 Z" fill="#fff" stroke="none"/><path d="M-11,1 L0,7 L11,1" /><path d="M-11,6 L0,12 L11,6" opacity=".85"/></g>
+<text x="1178" y="398" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Management Dashboard<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">16</tspan></text>
+<text x="1178" y="414" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Create a Record</text>
+<text x="1178" y="431" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#9a7b25">→ Manager alert</text>
+<ellipse cx="1338" cy="375.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="1311.92" cy="350" r="11.76" fill="#e2483d" opacity=".35"/>
+<circle cx="1360.08" cy="350" r="11.76" fill="#e2483d" opacity=".35"/>
+<circle cx="1336" cy="350" r="28" fill="#e2483d"/>
+<g transform="translate(1336,350) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="-11" y="-8" width="22" height="16" rx="1.5" fill="#fff" stroke="none"/><path d="M-11,-8 L0,1 L11,-8" stroke="#e2483d" stroke-width="2"/></g>
+<text x="1336" y="398" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Manager Gmail<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">17</tspan></text>
+<text x="1336" y="414" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Send an Email</text>
+<text x="1336" y="431" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Alerts the manager</text>
+<ellipse cx="1022" cy="503.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="995.92" cy="478" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1044.08" cy="478" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1020" cy="478" r="28" fill="#1f9d5a"/>
+<g transform="translate(1020,478) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<text x="1020" y="526" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">18</tspan></text>
+<text x="1020" y="542" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Add a Row</text>
+<text x="1020" y="559" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Logs the feedback</text>
+<ellipse cx="1180" cy="503.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="1153.92" cy="478" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1202.08" cy="478" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1178" cy="478" r="28" fill="#27aee8"/>
+<g transform="translate(1178,478) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-11,-4 L0,-10 L11,-4 L0,2 Z" fill="#fff" stroke="none"/><path d="M-11,1 L0,7 L11,1" /><path d="M-11,6 L0,12 L11,6" opacity=".85"/></g>
+<text x="1178" y="526" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Management Dashboard<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">19</tspan></text>
+<text x="1178" y="542" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Create a Record</text>
+<text x="1178" y="559" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#9a7b25">→ Private queue + draft reply</text>
+<ellipse cx="1022" cy="630.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="995.92" cy="605" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1044.08" cy="605" r="11.76" fill="#1f9d5a" opacity=".35"/>
+<circle cx="1020" cy="605" r="28" fill="#1f9d5a"/>
+<g transform="translate(1020,605) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-8,-11 h11 l5,5 v17 h-16 z" fill="#fff" stroke="none"/><g stroke="#1f9d5a" stroke-width="1.6"><rect x="-5" y="-2" width="10" height="9"/><line x1="-5" y1="2.5" x2="5" y2="2.5"/><line x1="0" y1="-2" x2="0" y2="7"/></g></g>
+<text x="1020" y="653" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Google Sheets<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">20</tspan></text>
+<text x="1020" y="669" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Add a Row</text>
+<text x="1020" y="686" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#1d1f23">Logs the feedback</text>
+<ellipse cx="1180" cy="630.76" rx="25.76" ry="6.16" fill="#000" opacity=".08"/>
+<circle cx="1153.92" cy="605" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1202.08" cy="605" r="11.76" fill="#27aee8" opacity=".35"/>
+<circle cx="1178" cy="605" r="28" fill="#27aee8"/>
+<g transform="translate(1178,605) scale(1.0769230769230769)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-11,-4 L0,-10 L11,-4 L0,2 Z" fill="#fff" stroke="none"/><path d="M-11,1 L0,7 L11,1" /><path d="M-11,6 L0,12 L11,6" opacity=".85"/></g>
+<text x="1178" y="653" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#1d1f23">Management Dashboard<tspan dx="5" font-family="'IBM Plex Mono', ui-monospace, Menlo, monospace" font-size="10" font-weight="400" fill="#6b6f76">21</tspan></text>
+<text x="1178" y="669" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b6f76">Create a Record</text>
+<text x="1178" y="686" text-anchor="middle" font-family="'IBM Plex Sans', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="600" fill="#9a7b25">→ Ready to post</text>
+</svg>

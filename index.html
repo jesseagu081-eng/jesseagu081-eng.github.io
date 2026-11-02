@@ -207,6 +207,17 @@ section { padding-block: 88px 48px; scroll-margin-top: 64px; border-top: 1px sol
   .wroute:last-child { border-bottom: 0; padding-bottom: 0; }
 }
 
+
+/* labelled Make scenario */
+.scenario { margin: 0 44px 40px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
+.scenario-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; }
+.scenario-hint { display: none; }
+.scenario-scroll { overflow-x: auto; border: 1px solid var(--line); background: #f5f5f5; }
+.scenario-zoom { border: 0; background: #f5f5f5; }
+.scenario-zoom img { min-width: 760px; }
+@media (max-width: 900px) { .scenario-hint { display: inline; } }
+@media (max-width: 560px) { .scenario { margin: 0 20px 32px; padding-top: 28px; } }
+
 /* process */
 .process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; counter-reset: p; }
 .process li { counter-increment: p; display: grid; gap: 12px; align-content: start; padding-top: 22px; border-top: 1px solid var(--line); }
@@ -506,11 +517,16 @@ footer a { color: var(--muted); }
           </div>
         </div>
 
-        <div class="wmap">
-          <div class="wmap-head"><h4 class="label">Workflow map · what each step does</h4></div>
-          <div class="wchain" style="--n:5"><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · watch rows</span><b>New feedback</b><p>Starts the scenario when a customer submits feedback.</p></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · update a cell</span><b>Update customer record</b><p>Records this feedback against the customer.</p></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · get a cell</span><b>Check complaint history</b><p>Reads whether the customer has complained before.</p></div><div class="wstep"><span class="wtool"><i class="dot ai"></i>OpenAI · ChatGPT</span><b>Score feedback</b><p>Rates sentiment and severity, and flags when it is unsure.</p></div><div class="wstep"><span class="wtool"><i class="dot logic"></i>Make · router</span><b>Choose a route</b><p>Sends the feedback down one of five routes.</p></div></div>
-          <div class="wsplit"><span class="label">Then one of five routes</span></div>
-          <div class="wroutes"><div class="wroute"><div class="wcond"><b>AI unsure</b><span>low confidence</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Needs human review</b><p>Listed for a person to check before any reply.</p></div></div><div class="wroute"><div class="wcond"><b>Negative + complaint history</b><span>repeat complaint</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Manager alert</b><p>Flagged on the dashboard as a repeat complaint.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Email the manager</b><p>Sends the branch manager an urgent alert.</p></div></div><div class="wroute"><div class="wcond"><b>Negative + severe</b><span>serious complaint</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Manager alert</b><p>Flagged on the dashboard as a serious complaint.</p></div><div class="wstep"><span class="wtool"><i class="dot mail"></i>Gmail · send</span><b>Email the manager</b><p>Sends the branch manager an urgent alert.</p></div></div><div class="wroute"><div class="wcond"><b>Mild negative</b><span>minor issue</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Private queue</b><p>Handled privately, with an AI-drafted reply ready to send.</p></div></div><div class="wroute"><div class="wcond"><b>Positive or neutral</b><span>happy customer</span></div><div class="wstep"><span class="wtool"><i class="dot sheets"></i>Google Sheets · add a row</span><b>Log feedback</b><p>Saves the feedback to this route's sheet.</p></div><div class="wstep"><span class="wtool"><i class="dot dash"></i>Airtable · create record</span><b>Ready to post</b><p>Queued to be shared as a public review.</p></div></div></div>
+        <div class="scenario">
+          <div class="scenario-head">
+            <h4 class="label">The Make scenario · what each module does</h4>
+            <span class="label scenario-hint">Swipe to see the full scenario · tap to enlarge</span>
+          </div>
+          <div class="scenario-scroll">
+            <button type="button" class="zoom scenario-zoom" data-src="capstone-scenario.svg" data-cap="Labelled Make scenario: every module, filter route and dashboard destination" aria-label="View the labelled Make scenario full size">
+              <img src="capstone-scenario.svg" alt="Make scenario. Google Sheets watches new rows, updates the customer record and reads complaint history; OpenAI scores the feedback; a router sends it down five routes: AI unsure to needs human review, negative with complaint history to manager alert and email, negative and severe to manager alert and email, mild negative to private queue with draft reply, and positive or neutral to ready to post. Every route adds a Google Sheets row and creates a Management Dashboard record." width="1404" height="712">
+            </button>
+          </div>
         </div>
         <div class="shots two">
           <figure class="shot">
